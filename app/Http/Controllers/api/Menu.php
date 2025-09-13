@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
-
+use App\Models\Menu as MenuModel;
 use App\Models\MenuAkses;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,4 +21,14 @@ $menus = MenuAkses::with('menu.submenus')
     return response()->json($menus);
 
     }
+    public function all(Request $request)
+    {
+      $data = MenuModel::all();
+        return response()->json([
+            "status" => "berhasil",
+            "data" => $data
+        ]);
+        
+    // $menus = MenuAkses::with('menu.submenus')->get();
+}
 }

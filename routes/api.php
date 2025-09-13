@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/menu',[Menu::class , 'index']);
+    Route::get('/menu/all',[Menu::class , 'all']);
 
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user
