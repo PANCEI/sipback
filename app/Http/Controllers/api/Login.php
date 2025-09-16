@@ -35,4 +35,5 @@ class Login extends Controller{
             "akses"=>$akses
         ]);
     }
+    
 }

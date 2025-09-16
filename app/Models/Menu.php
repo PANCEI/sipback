@@ -9,6 +9,12 @@ class Menu extends Model
 {
     use HasFactory;
     protected $table = 'menu';
+     protected $fillable = [
+        'menu', // Tambahkan kolom ini
+        'urutan',   // Tambahkan kolom ini
+        'jenis',    // Tambahkan kolom ini
+        // Tambahkan semua kolom lain yang ingin Anda izinkan untuk diupdate
+    ];
     public function submenus() {
     
         return $this->hasMany(SubMenu::class, 'id_menu');
