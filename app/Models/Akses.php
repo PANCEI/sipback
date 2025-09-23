@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Akses extends Model
 {
     use HasFactory;
+     protected $fillable = [
+        'akses', // Tambahkan kolom ini
+        // Tambahkan semua kolom lain yang ingin Anda izinkan untuk diupdate
+    ];
     
 }
