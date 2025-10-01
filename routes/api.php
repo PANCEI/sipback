@@ -7,6 +7,7 @@ use App\Http\Controllers\api\Login;
 use App\Http\Controllers\api\Menu;
 use App\Http\Controllers\api\Akses;
 use App\Http\Controllers\api\MenuAkses;
+use App\Http\Controllers\api\SubMenu;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //menu akses
     Route::post('/tambahAkses',[MenuAkses::class, 'tambah']);
     Route::delete('/deleteAkses', [MenuAkses::class , 'HapusAkses']);
+    // sub menu 
+    Route::get('/submenu',[SubMenu::class,'show']);
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
         return response()->json(['message' => 'Settings updated.']);
