@@ -41,6 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/deleteAkses', [MenuAkses::class , 'HapusAkses']);
     // sub menu 
     Route::get('/submenu',[SubMenu::class,'show']);
+    Route::post('/submenu/add' , [SubMenu::class, "insert"]);
+    Route::put('/submenuchange', [SubMenu::class, 'update']);
+    Route::delete('/submenudelete',[SubMenu::class, 'delete']);
+    // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
         return response()->json(['message' => 'Settings updated.']);
