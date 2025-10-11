@@ -5,6 +5,7 @@ use App\Models\Menu as MenuModel;
 use App\Models\MenuAkses;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\MenuAkses as MenuAksesModel;
 
 class Menu extends Controller
 {
@@ -65,6 +66,7 @@ public function insert(Request $request)
     public function delete(Request $request)
     {
         $menu = MenuModel::find($request->id);
+       
         if (!$menu) {
             return response()->json([
                 "status" => "gagal",
@@ -72,6 +74,7 @@ public function insert(Request $request)
             ], 404);
         }
         $menu->delete();
+       MenuAksesModel::where('id_menu', $request->id)->delete();
         return response()->json([
             "status" => "berhasil",
             "message" => "Menu berhasil dihapus."

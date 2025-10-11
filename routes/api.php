@@ -8,6 +8,7 @@ use App\Http\Controllers\api\Menu;
 use App\Http\Controllers\api\Akses;
 use App\Http\Controllers\api\MenuAkses;
 use App\Http\Controllers\api\SubMenu;
+use App\Http\Controllers\api\MasterObat;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/submenu/add' , [SubMenu::class, "insert"]);
     Route::put('/submenuchange', [SubMenu::class, 'update']);
     Route::delete('/submenudelete',[SubMenu::class, 'delete']);
+    // master obat
+    Route::get('/all-obat',[MasterObat::class, 'all']);
+    Route::get('/generate-code',[MasterObat::class,'generate']);
+    Route::post('/add-master-obat', [MasterObat::class, 'add']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
