@@ -49,6 +49,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/all-obat',[MasterObat::class, 'all']);
     Route::get('/generate-code',[MasterObat::class,'generate']);
     Route::post('/add-master-obat', [MasterObat::class, 'add']);
+    Route::put('/update-flag-master-obat', [MasterObat::class, 'updateFlag']);
+    Route::put('/update-nama-master-obat', [MasterObat::class, 'updatenama']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
