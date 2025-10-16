@@ -106,4 +106,27 @@ class MasterObat extends Controller
             "data"=>"Nama Obat Berhasil Di Ubah"
         ]);
     }
+
+    /**
+     * melakukan delete terhadap kode obat
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Request $request){
+        $request->validate([
+            'kode_obat' => 'required'
+        ]);
+        $masterobat = MasterObatModel::find($request->kode_obat);
+        if(!$masterobat){
+            return response()->json([
+                'message'=>'gagal',
+                'data'=>'data tidak ditemukan'
+            ]);
+        }
+        $masterobat->delete();
+        return response()->json([
+            'message'=>'berhasil',
+            "data"=>"Data Berhasil Di Hapus"
+        ]);
+    }
 }
