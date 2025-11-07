@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\kategoriObat as kategoriObatModel;
+use Illuminate\Validation\ValidationException;
 class MasterKategori extends Controller
 {
     //
@@ -23,9 +24,20 @@ class MasterKategori extends Controller
      */
     public function add(Request $request)
     {
-        return response()->json([
-            "message" => "berhasil",
-        ]);
+        try{
+            $request->validate([
+                'nama_kategori' => 'required|string|max:255',
+            ]);
+            
+            return response()->json([
+                "message" => "berhasil",
+            ]);
+        }catch(ValidationException $e){
+            return response()->json([
+                "message"=>"gagal",
+                "errors"=>$e->errors()
+            ],422);
+        }
     }
 
 }
