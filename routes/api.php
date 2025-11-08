@@ -48,6 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // master kategori
     Route::get('/all-katogori-medicine' ,[MasterKategori::class , "all"]);
     Route::post('/add-kategori-medicine' ,[MasterKategori::class , "add"]);
+    Route::put('/update-kategori-medicine',[MasterKategori::class, 'update']);
+    Route::delete('/delete-kategori-medicine',[MasterKategori::class, 'deleteKategori']);
     // master obat
     Route::get('/all-obat',[MasterObat::class, 'all']);
     Route::get('/generate-code',[MasterObat::class,'generate']);
