@@ -10,6 +10,7 @@ use App\Http\Controllers\api\MenuAkses;
 use App\Http\Controllers\api\SubMenu;
 use App\Http\Controllers\api\MasterObat;
 use App\Http\Controllers\api\MasterKategori;
+use App\Http\Controllers\api\MasterSatuan;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,6 +51,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/add-kategori-medicine' ,[MasterKategori::class , "add"]);
     Route::put('/update-kategori-medicine',[MasterKategori::class, 'update']);
     Route::delete('/delete-kategori-medicine',[MasterKategori::class, 'deleteKategori']);
+    // master satuan
+    Route::get('/all-satuan-medicine' , [MasterSatuan::class , "all"]);
+    Route::post('/add-satuan-medicine' , [MasterSatuan::class , "add"]);
+    Route::put('/update-satuan-medicine',[MasterSatuan::class, 'update']);
+    Route::delete('/delete-satuan-medicine',[MasterSatuan::class, 'deleteSatuan']);
     // master obat
     Route::get('/all-obat',[MasterObat::class, 'all']);
     Route::get('/generate-code',[MasterObat::class,'generate']);
