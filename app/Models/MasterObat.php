@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\api\MasterKategori;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +19,9 @@ class MasterObat extends Model
     protected $fillable = [
         'kode_obat',
         'nama_obat',
-        'flag_delete'
+        'flag_delete', 
+        'id_satuan',
+        'kandungan',
     ];
 
     /**
@@ -40,5 +43,21 @@ class MasterObat extends Model
 
         // Hasil akhir: OBT0001, OBT0002, OBT0100, dst.
         return 'OBT' . str_pad($number, 4, '0', STR_PAD_LEFT);
+    }
+     // Relasi ke satuan (1 → 1)
+    public function satuan()
+    {
+        return $this->belongsTo(MasterSatuan::class, 'id_satuan', 'id');
+    }
+
+    // Relasi kategori (many-to-many)
+    public function kategori()
+    {
+        return $this->belongsToMany(
+            kategoriObat::class,
+            'obat_kategori_relasi',
+            'kode_obat',
+            'kategori_id'
+        );
     }
 }

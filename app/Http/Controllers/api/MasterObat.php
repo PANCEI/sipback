@@ -5,12 +5,13 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MasterObat as MasterObatModel;
-
+use App\Models\ObatKatergoriRelasi as ObatKategoriRelasiModel;
+use Illuminate\Validation\ValidationException;
 class MasterObat extends Controller
 {
     public function all()
     {
-        $data = MasterObatModel::all();
+        $data = MasterObatModel::with(['kategori', 'satuan'])->get();
         return response()->json([
             "message" => "Berhasil",
             "data" => $data
@@ -42,15 +43,27 @@ class MasterObat extends Controller
     {
         $request->validate([
             'kode_obat' => 'required',
-            'nama_obat' => 'required'
+            'nama_obat' => 'required',
+            'id_satuan' => 'required',
+            'kandungan' => 'required',
+            
         ]);
 
         $obat = MasterObatModel::create([
             'kode_obat' => $request->kode_obat,
             'nama_obat' => $request->nama_obat,
+            'id_satuan' => $request->id_satuan,
+            'kandungan' => $request->kandungan,
             'flag_delete'=>0
         ]);
-
+        $kategori = $request->id_kategori; // Mengambil array kategori dari request
+        foreach ($kategori as $kat) {
+            ObatKategoriRelasiModel::create([
+                'kode_obat' => $request->kode_obat,
+                'kategori_id' => $kat,
+            ]);
+        }
+        
         return response()->json([
             'status' => 'success',
             'message' => 'berhasil',
