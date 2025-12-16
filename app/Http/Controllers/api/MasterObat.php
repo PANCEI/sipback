@@ -103,7 +103,8 @@ class MasterObat extends Controller
     public function updatenama(Request $request){
         $request->validate([
             'kode_obat' => 'required',
-            'nama_obat' => 'required'
+            'nama_obat' => 'required',
+            'id_satuan'=>'required'
         ]);
         $masterobat = MasterObatModel::find($request->kode_obat);
         if(!$masterobat){
@@ -113,7 +114,12 @@ class MasterObat extends Controller
             ]);
         }
         $nama =$request->nama_obat;
-        $masterobat->update(['nama_obat'=>$nama]);
+        $masterobat->update([
+            'nama_obat'=>$nama,
+            'kandungan'=>$request->kandungan,
+            'id_satuan'=>$request->id_satuan
+         ]);
+           $masterobat->kategori()->sync($request->id_kategori);
         return response()->json([
             'message'=>'berhasil',
             "data"=>"Nama Obat Berhasil Di Ubah"
@@ -122,6 +128,7 @@ class MasterObat extends Controller
 
     /**
      * melakukan delete terhadap kode obat
+     * fitur ini di non aktifkan sementara menunggu konfirmasi lanjutan
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
