@@ -64,12 +64,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update-flag-master-obat', [MasterObat::class, 'updateFlag']);
     Route::put('/update-nama-master-obat', [MasterObat::class, 'updatenama']);
     Route::delete('/delete-master-obat', [MasterObat::class, 'delete']);
+    Route::get('/kode-obat',[MasterObat::class , 'kodeObat']);
     // Master Mitra
     Route::get('/generate-kodeM', [MasterMitra::class , 'generate']);
     Route::post('/add-mitra', [MasterMitra::class , 'add']);
     Route::get('/all-mitra', [MasterMitra::class , 'all']);
     Route::put('/update-flag-mitra', [MasterMitra::class , 'UpdateFlagdelete']);
     Route::put('/update-master-mitra', [MasterMitra::class , 'UpdateMitra']);
+    Route::get('/kode-mitra', [MasterMitra::class , 'kodeMitra']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~

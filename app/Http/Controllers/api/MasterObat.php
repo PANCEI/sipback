@@ -149,4 +149,19 @@ class MasterObat extends Controller
             "data"=>"Data Berhasil Di Hapus"
         ]);
     }
+    /**
+     * Mendapatkan daftar kode obat.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function kodeObat()
+    {
+        $data = MasterObatModel::select('kode_obat', 'nama_obat')
+        ->where('flag_delete', 0)
+        ->get();
+        return response()->json([
+            "message" => "Berhasil",
+            "data" => $data
+        ]);
+    }
 }

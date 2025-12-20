@@ -135,5 +135,17 @@ class MasterMitra extends Controller
             ],422);
         }
     }
+    /**
+     * Mendapatkan kode mitra terbaru
+     * @param JSONRESPONSE
+     * 
+     */
+    public function kodeMitra(){
+       $mitra =MasterMitraModel::select('kode_mitra', 'nama_mitra')->where('flag_delete', 0)->get();
+        return response()->json([
+            'message'=>'berhasil',
+            'data'=>$mitra
+        ]);
+    }
 
 }
