@@ -76,6 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // master medicine in
     Route::get('/all-medicine-in', [Medicine_In::class , 'all']);
     Route::post('/add-medicine-in', [Medicine_In::class , 'add']);
+    Route::delete('/delete-medicine-in', [Medicine_In::class , 'delete']);
     
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
