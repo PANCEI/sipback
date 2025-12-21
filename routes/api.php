@@ -12,6 +12,7 @@ use App\Http\Controllers\api\MasterObat;
 use App\Http\Controllers\api\MasterKategori;
 use App\Http\Controllers\api\MasterSatuan;
 use App\Http\Controllers\api\MasterMitra;
+use App\Http\Controllers\api\Medicine_In;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -72,6 +73,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update-flag-mitra', [MasterMitra::class , 'UpdateFlagdelete']);
     Route::put('/update-master-mitra', [MasterMitra::class , 'UpdateMitra']);
     Route::get('/kode-mitra', [MasterMitra::class , 'kodeMitra']);
+    // master medicine in
+    Route::get('/all-medicine-in', [Medicine_In::class , 'all']);
+    Route::post('/add-medicine-in', [Medicine_In::class , 'add']);
+    
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
