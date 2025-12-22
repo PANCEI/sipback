@@ -80,6 +80,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/delete-medicine-in', [Medicine_In::class , 'delete']);
     // master storage medicine
     Route::get('/all-storage-medicine', [MasterStorageMedicine::class , 'all']);
+    // Master Poli
+    
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
