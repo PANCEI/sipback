@@ -13,6 +13,7 @@ use App\Http\Controllers\api\MasterKategori;
 use App\Http\Controllers\api\MasterSatuan;
 use App\Http\Controllers\api\MasterMitra;
 use App\Http\Controllers\api\Medicine_In;
+use App\Http\Controllers\api\MasterStorageMedicine;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -77,7 +78,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/all-medicine-in', [Medicine_In::class , 'all']);
     Route::post('/add-medicine-in', [Medicine_In::class , 'add']);
     Route::delete('/delete-medicine-in', [Medicine_In::class , 'delete']);
-    
+    // master storage medicine
+    Route::get('/all-storage-medicine', [MasterStorageMedicine::class , 'all']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~

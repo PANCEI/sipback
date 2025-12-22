@@ -60,4 +60,8 @@ class MasterObat extends Model
             'kategori_id'
         );
     }
+    // untuk  qty di storage medicine
+    public function Storage(){
+        return $this->hasOne(MasterStorageMedicine::class, 'kode_obat', 'kode_obat');
+    }
 }
