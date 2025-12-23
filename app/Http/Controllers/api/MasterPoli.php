@@ -47,4 +47,15 @@ class MasterPoli extends Controller
             ], 422);
         }
     }
+    /**
+     * menampilkan semua data master poli
+     * 
+     */
+    public function all(){
+        $data = MasterPoliModel::all();
+        return response()->json([
+            'message' => 'Berhasil mengambil data poli',
+            'data' => $data
+        ]);
+    }
 }
