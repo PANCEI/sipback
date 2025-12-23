@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MasterPoli as MasterPoliModel;
+use Illuminate\Validation\ValidationException;
 class MasterPoli extends Controller
 {
     //
@@ -17,5 +18,33 @@ class MasterPoli extends Controller
         return response()->json([
             'data' => $kodePoli
         ]);   
+    }
+    /**
+     * tambah master poli untuk menambahkan data poli baru
+     * 
+     */
+    public function add(Request $request){
+        try{
+            $request->validate([
+                'kode_poli' => 'required',
+                'nama_poli' => 'required',
+                
+            ]);
+            $poli = MasterPoliModel::create([
+                'kode_poli' => $request->kode_poli,
+                'nama_poli' => $request->nama_poli,
+                'deskripsi' => $request->deskripsi,
+                'is_active'=>0
+            ]);
+            return response()->json([
+                'message' => 'Berhasil menambahkan data poli',
+                'data' => $poli
+            ]);
+        }catch(ValidationException $e){
+            return response()->json([
+                'message' => 'pastikan data terisi dengan benar',
+                'errors' => $e->errors()
+            ], 422);
+        }
     }
 }

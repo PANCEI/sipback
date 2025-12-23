@@ -85,6 +85,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Master Poli
     Route::get('/generate-code-poli',[MasterPoli::class , 'generate']);
     Route::post('/add-master-poli', [MasterPoli::class , 'add']);
+    Route::get('/all-master-poli', [MasterPoli::class , 'all']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~

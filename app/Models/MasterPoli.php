@@ -9,6 +9,12 @@ class MasterPoli extends Model
 {
     use HasFactory;
     protected $table = 'master_poli';
+    protected $fillable = [
+        'kode_poli',
+        'nama_poli',
+        'deskripsi',
+        'is_active'
+    ];
     public static function generateKodePoli(){
         $last = self::where('kode_poli', 'like' , 'PLI%')
         ->orderByRaw('CAST(SUBSTRING(kode_poli, 4) AS UNSIGNED) DESC')->first();
