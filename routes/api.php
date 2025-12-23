@@ -14,6 +14,8 @@ use App\Http\Controllers\api\MasterSatuan;
 use App\Http\Controllers\api\MasterMitra;
 use App\Http\Controllers\api\Medicine_In;
 use App\Http\Controllers\api\MasterStorageMedicine;
+use App\Http\Controllers\api\MasterPoli;
+use App\Http\Controllers\api\MasterDokter;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -81,7 +83,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // master storage medicine
     Route::get('/all-storage-medicine', [MasterStorageMedicine::class , 'all']);
     // Master Poli
-    
+    Route::get('/generate-code-poli',[MasterPoli::class , 'generate']);
+    Route::post('/add-master-poli', [MasterPoli::class , 'add']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
