@@ -58,4 +58,39 @@ class MasterPoli extends Controller
             'data' => $data
         ]);
     }
+    /**
+     * edit master poli
+     * 
+     * 
+     */
+    public function edit(Request $request){
+        try{
+            $request->validate([
+                'id'=>'required',
+                'kode_poli'=>'required',
+                'nama_poli'=>'required'
+            ]);
+            $poli= MasterPoliModel::find($request->id);
+            if(!$poli){
+                return response()->json([
+                    'message'=>'gagal',
+                    'data'=>'data tidak di temukan'
+                ], 404);
+            }
+            $poli->update([
+                'kode_poli'=>$request->kode_poli,
+                'nama_poli'=>$request->nama_poli, 
+                'deskripsi'=>$request->deskripsi
+            ]);
+            return response()->json([
+                'message'=>'data berhasil di ubah',
+                'data'=>$request->all()
+            ]);
+        }catch(ValidationException $e){
+              return response()->json([
+                'message' => 'pastikan data terisi dengan benar',
+                'errors' => $e->errors()
+            ], 422);
+        }
+    }
 }
