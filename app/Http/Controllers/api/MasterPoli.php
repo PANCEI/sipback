@@ -100,6 +100,20 @@ class MasterPoli extends Controller
      */
     public function ubahStatus(Request $request){
         try{
+            $request->validate([
+                'id'=>'required',
+                'is_active'=>'required',
+            ]);
+            $poli=MasterPoliModel::find($request->id);
+            if(!$poli){
+                return response()->json([
+                    'message'=>'gagal',
+                    'data'=>'pastikan datanya sesuai'
+                ]);
+            }
+            $poli->update([
+                'is_active'=>$request->is_active
+            ]);
             return response()->json([
                 'message'=>'berhasil',
                 'data'=>$request->all()
