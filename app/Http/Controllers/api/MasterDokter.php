@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MasterDokter as MasterDokterModel;
 use Illuminate\Validation\ValidationException;
+
+use function Laravel\Prompts\error;
+
 class MasterDokter extends Controller
 {
     //
+    /**
+     * 
+     * MENDAPATKAN KODE DOKTER
+     * 
+     * 
+     */
     public function kodeDokter(){
         $kode =[
             'kode_dokter'=> MasterDokterModel::getKodeDokter(),
@@ -18,5 +27,18 @@ class MasterDokter extends Controller
             'message'=>'berhasil',
             'data'=>$kode
         ]);
+    }
+    /**
+     * menambah data master dokter
+     * 
+     */
+    public function addDokter(Request $request){
+     try{
+
+     }catch(ValidationException $e){
+        return response()->json([
+            'message'=>'pastikan datanya sesuai'
+        ], 422);
+     }
     }
 }

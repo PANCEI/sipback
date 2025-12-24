@@ -125,4 +125,16 @@ class MasterPoli extends Controller
             ]);
         }
     }
+    /***
+     * 
+     * mendapatkan kode poli
+     * 
+     */
+    public function alldata(){
+        $poli=MasterPoliModel::select('id', 'kode_poli', 'nama_poli')->where('is_active', 0)->get();
+        return response()->json([
+            'message'=>'berhasil',
+            'data'=>$poli
+        ]);
+    }
 }
