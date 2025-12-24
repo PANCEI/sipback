@@ -8,4 +8,7 @@ use Illuminate\Http\Request;
 class MasterDokter extends Controller
 {
     //
+    public function kodeDokter(){
+        
+    }
 }
