@@ -1,5 +1,5 @@
 ===================applikasi laravel==============
 
 
-iseng aja 
+iseng aja \n
 boss
