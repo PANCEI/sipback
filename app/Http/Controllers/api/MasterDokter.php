@@ -34,7 +34,19 @@ class MasterDokter extends Controller
      */
     public function addDokter(Request $request){
      try{
-
+        $request->validate([
+            'kode_dokter'=>'required',
+            'no_sip'=>'required',
+            'nama_dokter'=>'required',
+            'id_poli'=>'required',
+            'no_telp'=>'required',
+            'status_dokter'=>'required'
+        ]);
+        
+        return response()->json([
+            'message'=>'berhasil',
+            'data'=>$request->all()
+        ]);
      }catch(ValidationException $e){
         return response()->json([
             'message'=>'pastikan datanya sesuai'
