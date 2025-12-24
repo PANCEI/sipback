@@ -93,4 +93,22 @@ class MasterPoli extends Controller
             ], 422);
         }
     }
+    /**
+     * ubah status active poli
+     * 
+     * 
+     */
+    public function ubahStatus(Request $request){
+        try{
+            return response()->json([
+                'message'=>'berhasil',
+                'data'=>$request->all()
+            ]);
+        }catch(ValidationException $e){
+            return response()->json([
+                'message'=>'papstikan data terisi dengan benar',
+                'errors'=>$e->errors()
+            ]);
+        }
+    }
 }
