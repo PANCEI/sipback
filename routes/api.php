@@ -93,6 +93,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/generate-kode-dokter', [MasterDokter::class,'kodeDOkter']);
     Route::post('/add-master-dokter',[MasterDokter::class, 'addDokter']);
     Route::get('/get-all-dokter',[MasterDokter::class , 'allDokter']);
+    Route::put('edit-master-dokter',[MasterDokter::class, 'editDokter']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~

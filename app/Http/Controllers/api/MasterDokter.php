@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MasterDokter as MasterDokterModel;
+use Illuminate\Validation\ValidationData;
 use Illuminate\Validation\ValidationException;
 
 use function Laravel\Prompts\error;
@@ -74,5 +75,40 @@ class MasterDokter extends Controller
         'message' => 'berhasil',
         'data' => $data
     ]);
+    }
+    /**
+     * edit master dokter
+     * 
+     * 
+     */
+    public function editDokter(Request $request){
+        try{
+            $request->validate([
+                'id'=>'required',
+                'nama_dokter'=>'required',
+                'kode_dokter'=>'required'
+            ]);
+            $dokter=MasterDokterModel::find($request->id);
+            if(!$dokter){
+                return response()->json([
+                    'messaage'=>'pastikan datanya ada'
+                ],422);
+            }
+            $dokter->update([
+               'nama_dokter'=>$request->nama_dokter,
+               'id_poli'=>$request->id_poli,
+               'spesialis'=>$request->spesialis,
+               'no_telp'=>$request->no_telp,
+               'status_dokter'=>$request->status_dokter 
+            ]);
+            return response()->json([
+                'message'=>'berhasil',
+                'data'=>$dokter
+            ]);
+        }catch(ValidationException $e){
+            return response()->json([
+                'message'=>'\pastikan semua data sesuai'
+            ], 422);
+        }
     }
 }
