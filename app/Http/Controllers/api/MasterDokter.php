@@ -5,7 +5,6 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MasterDokter as MasterDokterModel;
-use Illuminate\Validation\ValidationData;
 use Illuminate\Validation\ValidationException;
 
 use function Laravel\Prompts\error;
@@ -109,6 +108,36 @@ class MasterDokter extends Controller
             return response()->json([
                 'message'=>'\pastikan semua data sesuai'
             ], 422);
+        }
+    }
+    /**
+     * ubah status 
+     * 
+     */
+    public function ubahFlag(Request $request){
+        try{
+            $request->validate([
+                'id'=>'required',
+                'flag_delete'=>'required'
+            ]);
+            $dokter = MasterDokterModel::find($request->id);
+            if(!$dokter){
+                return response()->json([
+                    'message'=>'pastikan datanyai',
+                    
+                ], 422);
+            }
+            $dokter->update([
+                'flag_delete'=>$request->flag_delete
+            ]);
+            return response()->json([
+                'message'=>'berhasil',
+                'data'=>$request->all()
+            ]);
+        }catch(ValidationException $e){
+            return response()->json([
+                'message'=>'pastikan datanya sesuai'
+            ]);
         }
     }
 }
