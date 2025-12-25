@@ -51,4 +51,10 @@ class MasterDokter extends Model
         // Return format SIP + TAHUN + 4 digit nomor urut (Contoh: SIP20230001)
         return $prefix . str_pad($number, 4, '0', STR_PAD_LEFT);
     }
+    public function poli()
+{
+    // Sesuaikan 'id_poli' dengan foreign key di table dokter 
+    // dan 'id' dengan primary key di table poli
+    return $this->belongsTo(MasterPoli::class, 'id_poli', 'id');
+}
 }

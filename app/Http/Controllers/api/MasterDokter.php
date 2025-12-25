@@ -42,15 +42,37 @@ class MasterDokter extends Controller
             'no_telp'=>'required',
             'status_dokter'=>'required'
         ]);
-        
+        $dokter=MasterDokterModel::create([
+            'kode_dokter'=>$request->kode_dokter,
+            'no_sip'=>$request->no_sip,
+            'nama_dokter'=>$request->nama_dokter,
+            'id_poli'=>$request->id_poli,
+            'no_telp'=>$request->no_telp,
+            'status_dokter'=>$request->status_dokter,
+            'flag_delete'=>0,
+            'spesialis'=>$request->spesialis
+        ]);
         return response()->json([
             'message'=>'berhasil',
-            'data'=>$request->all()
+            'data'=>$dokter
         ]);
      }catch(ValidationException $e){
         return response()->json([
             'message'=>'pastikan datanya sesuai'
         ], 422);
      }
+    }
+    /**
+     * get all dokter
+     * 
+     * 
+     */
+    public function allDokter(){
+      $data = MasterDokterModel::with('poli')->get();
+
+    return response()->json([
+        'message' => 'berhasil',
+        'data' => $data
+    ]);
     }
 }
