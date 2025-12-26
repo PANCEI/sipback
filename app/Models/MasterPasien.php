@@ -17,5 +17,17 @@ class MasterPasien extends Model
         'tanggal_lahir',
         'flag_delete'
     ];
-
+    public static function generateRm(){
+        $last = self::where('no_rm', 'like', 'RM-%')
+            ->orderByRaw('CAST(SUBSTRING(no_rm, 4) AS UNSIGNED) DESC')
+            ->first();
+         if (!$last) {
+            $number = 1;
+        } else {
+          
+            $number = (int) substr($last->no_rm, 3) + 1;
+            
+        }
+           return 'RM-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+    }
 }
