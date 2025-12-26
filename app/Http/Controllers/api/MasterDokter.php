@@ -129,7 +129,7 @@ class MasterDokter extends Controller
             }
             $dokter->update([
                 'flag_delete'=>$request->flag_delete
-            ]);
+                ]);
             return response()->json([
                 'message'=>'berhasil',
                 'data'=>$request->all()
