@@ -16,6 +16,7 @@ use App\Http\Controllers\api\Medicine_In;
 use App\Http\Controllers\api\MasterStorageMedicine;
 use App\Http\Controllers\api\MasterPoli;
 use App\Http\Controllers\api\MasterDokter;
+use App\Http\Controllers\api\MasterPasien;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -95,6 +96,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get-all-dokter',[MasterDokter::class , 'allDokter']);
     Route::put('/edit-master-dokter',[MasterDokter::class, 'editDokter']);
     Route::patch('/ubah-status-dokter',[MasterDokter::class, 'ubahFlag']);
+    // Master Pasien
+    Route::get('/get-rm', [MasterPasien::class, 'norm']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
