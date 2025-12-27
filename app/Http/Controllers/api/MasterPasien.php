@@ -51,11 +51,40 @@ class MasterPasien extends Controller
      * get All data Master Pasien
      * 
      */
-    public function all(){
-        $data=MasterPasienModel::all();
-        return response()->json([
-            'message'=>'berhasil',
-            'data'=>$data
-        ]);
+    // public function all(){
+    //     $data=MasterPasienModel::all();
+    //     return response()->json([
+    //         'message'=>'berhasil',
+    //         'data'=>$data
+    //     ]);
+    // }
+ 
+
+public function all(Request $request) {
+    // 1. Ambil parameter dari frontend (dengan nilai default)
+    $search = $request->query('search');
+    $limit  = $request->query('limit', 5); // Default 10 data per halaman
+
+    // 2. Query dengan kondisi search
+    $query = MasterPasienModel::query();
+
+    if (!empty($search)) {
+        $query->where(function($q) use ($search) {
+            $q->where('nama_pasien', 'LIKE', "%{$search}%")
+              ->orWhere('no_rm', 'LIKE', "%{$search}%");
+        });
     }
+
+    // 3. Gunakan paginate() bukan all()
+    // paginate() otomatis menangani offset/limit dan menghitung total data
+    $data = $query->latest()->paginate($limit);
+
+    return response()->json([
+        'message' => 'berhasil',
+        'data'    => $data->items(),      // Hanya data untuk halaman ini
+        'total'   => $data->total(),      // Total keseluruhan data di database
+        'current_page' => $data->currentPage(),
+        'last_page'    => $data->lastPage(),
+    ]);
+}
 }
