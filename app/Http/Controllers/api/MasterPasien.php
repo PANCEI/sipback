@@ -16,4 +16,16 @@ class MasterPasien extends Controller
             'data'=>$data
         ]);
     }
+    public function add(Request $request){
+        try{
+            return response()->json([
+                'message'=>'berhasil',
+                'data'=>$request->all()
+            ]);
+        }catch(ValidationException $e){
+            return response()->json([
+                'message'=>'gagal'
+            ], 422);
+        }
+    }
 }

@@ -98,6 +98,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/ubah-status-dokter',[MasterDokter::class, 'ubahFlag']);
     // Master Pasien
     Route::get('/get-rm', [MasterPasien::class, 'norm']);
+    Route::post('/add-master-pasien',[MasterPasien::class, 'add']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
