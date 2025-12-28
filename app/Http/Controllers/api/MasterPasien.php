@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MasterPasien as MasterPasienModel;
 use Illuminate\Validation\ValidationException;
+use SebastianBergmann\Environment\Console;
 
 class MasterPasien extends Controller
 {
@@ -125,6 +126,23 @@ class MasterPasien extends Controller
             return response()->json([
                 'message'=>"pastikan datanya sesuai"
             ],422);
+        }
+    }
+    /**
+     * 
+     * ubah flag delete master pasien
+     * 
+     */
+    public function flag(Request $request){
+        try{
+            return response()->json([
+                'message'=>'berhasil',
+                'data'=>$request->all()
+            ]);
+        }catch(ValidationException $e){
+            return response()->json([
+                'message'=>'pastikan datanya sesuai'
+            ]);
         }
     }
 }
