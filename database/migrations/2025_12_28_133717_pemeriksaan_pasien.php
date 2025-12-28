@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-
         //
-        Schema::create('master_pasien', function (Blueprint $table) {
+          Schema::create('pemeriksaan_pasien', function (Blueprint $table) {
             $table->id();
-
-            $table->string('nama_pasien');
-            $table->string('no_rm')->unique();
-            $table->string('alamat'); 
-            $table->text('deskripsi')->nullable();
-            $table->date('tanggal_lahir');
-            // Status aktif / nonaktif
-            $table->boolean('flag_delete')->default(true);
-
+            $table->integer('id_pasien');
+            $table->integer('sistolik');
+            $table->integer('diastolik');
+            $table->text('keluhan');
+            $table->text('diagnosa');
             $table->timestamps();
         });
     }
@@ -34,6 +29,6 @@ return new class extends Migration
     public function down(): void
     {
         //
-         Schema::dropIfExists('master_pasien');
+        Schema::dropIfExists('pemeriksaan_pasien');
     }
 };
