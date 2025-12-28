@@ -135,6 +135,19 @@ class MasterPasien extends Controller
      */
     public function flag(Request $request){
         try{
+            $request->validate([
+                'id'=>'required',
+                'flag_delete'=>'required'
+            ]);
+            $pasien=MasterPasienModel::find($request->id);
+            if(!$pasien){
+                return response()->json([
+                    'message'=>'pastikan datanya ada'
+                ]);
+            }
+            $pasien->update([
+                'flag_delete'=>$request->flag_delete
+            ]);
             return response()->json([
                 'message'=>'berhasil',
                 'data'=>$request->all()
@@ -142,7 +155,7 @@ class MasterPasien extends Controller
         }catch(ValidationException $e){
             return response()->json([
                 'message'=>'pastikan datanya sesuai'
-            ]);
+            ],422);
         }
     }
 }
