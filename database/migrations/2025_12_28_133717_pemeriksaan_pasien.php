@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('diastolik');
             $table->text('keluhan');
             $table->text('diagnosa');
+            $table->date('tanggal_pemeriksaan');
             $table->timestamps();
         });
     }

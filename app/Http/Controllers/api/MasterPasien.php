@@ -97,35 +97,36 @@ class MasterPasien extends Controller
      * 
      * 
      */
-    public function edit(Request $request){
-        try{
+    public function edit(Request $request)
+    {
+        try {
             $request->validate([
-                'id'=>'required',
-                'nama_pasien'=>'required|string',
-                'alamat'=>'required',
-                'tgl_lahir'=>'required|date',
-                
+                'id' => 'required',
+                'nama_pasien' => 'required|string',
+                'alamat' => 'required',
+                'tgl_lahir' => 'required|date',
+
             ]);
             $pasien = MasterPasienModel::find($request->id);
-            if(!$pasien){
+            if (!$pasien) {
                 return response()->json([
-                    'message'=>'data tidak ada'
-                ],422);
+                    'message' => 'data tidak ada'
+                ], 422);
             }
             $pasien->update([
-                'nama_pasien'=>$request->nama_pasien,
-                'alamat'=>$request->alamat,
-                'tanggal_lahir'=>$request->tgl_lahir,
-                'deskripsi'=>$request->deskripsi
+                'nama_pasien' => $request->nama_pasien,
+                'alamat' => $request->alamat,
+                'tanggal_lahir' => $request->tgl_lahir,
+                'deskripsi' => $request->deskripsi
             ]);
             return response()->json([
-                'message'=>'berhasil',
-                'data'=>$request->all()
+                'message' => 'berhasil',
+                'data' => $request->all()
             ]);
-        }catch(ValidationException $e){
+        } catch (ValidationException $e) {
             return response()->json([
-                'message'=>"pastikan datanya sesuai"
-            ],422);
+                'message' => "pastikan datanya sesuai"
+            ], 422);
         }
     }
     /**
@@ -133,29 +134,53 @@ class MasterPasien extends Controller
      * ubah flag delete master pasien
      * 
      */
-    public function flag(Request $request){
-        try{
+    public function flag(Request $request)
+    {
+        try {
             $request->validate([
-                'id'=>'required',
-                'flag_delete'=>'required'
+                'id' => 'required',
+                'flag_delete' => 'required'
             ]);
-            $pasien=MasterPasienModel::find($request->id);
-            if(!$pasien){
+            $pasien = MasterPasienModel::find($request->id);
+            if (!$pasien) {
                 return response()->json([
-                    'message'=>'pastikan datanya ada'
+                    'message' => 'pastikan datanya ada'
                 ]);
             }
             $pasien->update([
-                'flag_delete'=>$request->flag_delete
+                'flag_delete' => $request->flag_delete
             ]);
             return response()->json([
-                'message'=>'berhasil',
-                'data'=>$request->all()
+                'message' => 'berhasil',
+                'data' => $request->all()
             ]);
-        }catch(ValidationException $e){
+        } catch (ValidationException $e) {
             return response()->json([
-                'message'=>'pastikan datanya sesuai'
-            ],422);
+                'message' => 'pastikan datanya sesuai'
+            ], 422);
         }
     }
+    /**
+     * get data pasien
+     * 
+     * 
+     */
+    public function pasien(Request $request)
+{
+    // Ambil keyword dari query string ?search=...
+    $search = $request->query('search');
+
+    // Jika input kosong, bisa kembalikan array kosong atau beberapa data terbaru
+    if (!$search) {
+        return response()->json([]);
+    }
+
+    $data = MasterPasienModel::select('no_rm', 'nama_pasien')
+        ->where('nama_pasien', 'LIKE', "%{$search}%")
+        ->orWhere('no_rm', 'LIKE', "%{$search}%")
+        ->limit(10) // Sangat penting: Batasi jumlah data agar respon cepat
+        ->get();
+
+    return response()->json($data);
+}
 }
