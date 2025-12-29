@@ -175,7 +175,7 @@ class MasterPasien extends Controller
         return response()->json([]);
     }
 
-    $data = MasterPasienModel::select('no_rm', 'nama_pasien')
+    $data = MasterPasienModel::select('id','no_rm', 'nama_pasien')
         ->where('nama_pasien', 'LIKE', "%{$search}%")
         ->orWhere('no_rm', 'LIKE', "%{$search}%")
         ->limit(10) // Sangat penting: Batasi jumlah data agar respon cepat

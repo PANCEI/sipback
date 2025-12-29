@@ -140,4 +140,23 @@ class MasterDokter extends Controller
             ]);
         }
     }
+    /**
+     * get kode dokter
+     * 
+     */
+    public function dokter(Request $request){
+        $search = $request->query('search');
+
+    // Jika input kosong, bisa kembalikan array kosong atau beberapa data terbaru
+    if (!$search) {
+        return response()->json([]);
+    }
+     $data = MasterDokterModel::select('id', 'kode_dokter', 'nama_dokter')
+        ->where('nama_dokter', 'LIKE', "%{$search}%")
+        ->orWhere('kode_dokter', 'LIKE', "%{$search}%")
+        ->limit(10) // Sangat penting: Batasi jumlah data agar respon cepat
+        ->get();
+
+    return response()->json($data);
+    }
 }
