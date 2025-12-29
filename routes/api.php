@@ -102,6 +102,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/all-master-pasien',[MasterPasien::class, 'all']);
     Route::put('/edit-master-pasien', [MasterPasien::class,'edit']);
     Route::patch('ubah-status-master-pasien',[MasterPasien::class, 'flag']);
+    Route::get('/get-pasien-check', [MasterPasien::class, 'pasien']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
