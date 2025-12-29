@@ -17,6 +17,8 @@ use App\Http\Controllers\api\MasterStorageMedicine;
 use App\Http\Controllers\api\MasterPoli;
 use App\Http\Controllers\api\MasterDokter;
 use App\Http\Controllers\api\MasterPasien;
+use App\Models\PemeriksaanPasien;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -105,12 +107,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('ubah-status-master-pasien',[MasterPasien::class, 'flag']);
     Route::get('/get-pasien-check', [MasterPasien::class, 'pasien']);
     // Pemeriksaaan Pasien
-    
+    Route::post('/add-pemeriksaan-pasien',[PemeriksaanPasien::class, 'add']);
     // Route::post('/submenu/add', 'SubMenu@insert'); cara lama
     Route::post('/settings', function (Request $request) {
         // Logika untuk mengubah setting user~
         return response()->json(['message' => 'Settings updated.']);
     });
-});
+}); 
 //Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login']);
 Route::post('/login',[Login::class , 'login']);
