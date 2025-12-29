@@ -15,6 +15,7 @@ return new class extends Migration
           Schema::create('pemeriksaan_pasien', function (Blueprint $table) {
             $table->id();
             $table->integer('id_pasien');
+            $table->integer('id_dokter');
             $table->integer('sistolik');
             $table->integer('diastolik');
             $table->text('keluhan');
