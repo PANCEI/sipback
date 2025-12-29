@@ -96,6 +96,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get-all-dokter',[MasterDokter::class , 'allDokter']);
     Route::put('/edit-master-dokter',[MasterDokter::class, 'editDokter']);
     Route::patch('/ubah-status-dokter',[MasterDokter::class, 'ubahFlag']);
+    Route::get('/get-dokter',[MasterDokter::class, 'dokter']);
     // Master Pasien
     Route::get('/get-rm', [MasterPasien::class, 'norm']);
     Route::post('/add-master-pasien',[MasterPasien::class, 'add']);
