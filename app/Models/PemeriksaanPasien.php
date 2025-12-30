@@ -18,4 +18,11 @@ class PemeriksaanPasien extends Model
         'tanggal_pemeriksaan',
         'diagnosa'
     ];
+    public function pasien(){
+        return $this->belongsTo(
+            MasterPasien::class, 
+            'id_pasien',
+            'id'
+        );
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\api\PemeriksaanPasien;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,5 +30,12 @@ class MasterPasien extends Model
             
         }
            return 'RM-' . str_pad($number, 4, '0', STR_PAD_LEFT);
+    }
+    public function pemeriksaan(){
+        return $this->hasMany(
+            PemeriksaanPasien::class,
+            'id_pasien',
+            'id'
+        );
     }
 }
