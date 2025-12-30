@@ -17,7 +17,7 @@ use App\Http\Controllers\api\MasterStorageMedicine;
 use App\Http\Controllers\api\MasterPoli;
 use App\Http\Controllers\api\MasterDokter;
 use App\Http\Controllers\api\MasterPasien;
-use App\Models\PemeriksaanPasien;
+use App\Http\Controllers\api\PemeriksaanPasien;
 
 /*
 |--------------------------------------------------------------------------
