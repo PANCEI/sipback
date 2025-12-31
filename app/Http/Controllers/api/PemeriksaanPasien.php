@@ -47,6 +47,7 @@ class PemeriksaanPasien extends Controller
     {
         $pemeriksaanHariIni = PemeriksaanPasienModel::with('pasien')
             ->whereDate('tanggal_pemeriksaan', now())
+            ->where('diagnosa', null)
             ->get();
             return response()->json([
                 'data'=>$pemeriksaanHariIni
