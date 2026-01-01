@@ -164,4 +164,17 @@ class MasterObat extends Controller
             "data" => $data
         ]);
     }
+    /**
+     * 
+     * cari  data pasien yang aktif
+     * 
+     */
+    public function caridata(Request $request){
+        $search = $request->query('search');
+        if(!$search){
+            return response()->json([]);
+        }
+        
+    }
 }
+

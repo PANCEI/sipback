@@ -72,6 +72,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update-nama-master-obat', [MasterObat::class, 'updatenama']);
     Route::delete('/delete-master-obat', [MasterObat::class, 'delete']);
     Route::get('/kode-obat',[MasterObat::class , 'kodeObat']);
+    Route::get('/obat-search',[MasterObat::class,'cariobat']);
     // Master Mitra
     Route::get('/generate-kodeM', [MasterMitra::class , 'generate']);
     Route::post('/add-mitra', [MasterMitra::class , 'add']);
