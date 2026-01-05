@@ -173,7 +173,7 @@ class MasterObat extends Controller
      * cari  data pasien yang aktif
      * 
      */
-    public function caridata(Request $request)
+    public function cariobat(Request $request)
     {
         $search = $request->query('search');
 
