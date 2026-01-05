@@ -43,14 +43,15 @@ class PemeriksaanPasien extends Controller
             ], 422);
         }
     }
-    public function today()
+    public function today(Request $request)
     {
+        
         $pemeriksaanHariIni = PemeriksaanPasienModel::with('pasien')
             ->whereDate('tanggal_pemeriksaan', now())
             ->where('diagnosa', null)
             ->get();
             return response()->json([
-                'data'=>$pemeriksaanHariIni
+                'data'=>$request->all()
             ]);
     }
 }
