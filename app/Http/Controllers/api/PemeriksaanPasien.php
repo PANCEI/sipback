@@ -45,13 +45,22 @@ class PemeriksaanPasien extends Controller
     }
     public function today(Request $request)
     {
-        
-        $pemeriksaanHariIni = PemeriksaanPasienModel::with('pasien')
-            ->whereDate('tanggal_pemeriksaan', now())
-            ->where('diagnosa', null)
-            ->get();
-            return response()->json([
-                'data'=>$request->all()
+        try{
+            $request->validate([
+                'akses'=>'required'
             ]);
+            $pemeriksaanHariIni = PemeriksaanPasienModel::with('pasien')
+                ->whereDate('tanggal_pemeriksaan', now())
+                ->where('diagnosa', null)
+                ->get();
+                return response()->json([
+                    'data'=>$request->all()
+                ]);
+
+        }catch(ValidationException $e){
+            return response()->json([
+                'message'=>'pastikan dataya sesuai'
+            ]);
+        }
     }
 }
