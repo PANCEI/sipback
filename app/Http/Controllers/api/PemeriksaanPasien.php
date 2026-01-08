@@ -68,4 +68,9 @@ class PemeriksaanPasien extends Controller
             ]);
         }
     }
+    public function pasien(Request $request){
+        return response()->json([
+            "data"=>$request->all()
+        ]);
+    }
 }
