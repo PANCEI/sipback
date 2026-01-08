@@ -49,12 +49,17 @@ class PemeriksaanPasien extends Controller
             $request->validate([
                 'akses'=>'required'
             ]);
-            $pemeriksaanHariIni = PemeriksaanPasienModel::with('pasien')
-                ->whereDate('tanggal_pemeriksaan', now())
-                ->where('diagnosa', null)
-                ->get();
+            if($request->akses ===1){
+                $pemeriksaanHariIni = PemeriksaanPasienModel::with('pasien')
+                    ->whereDate('tanggal_pemeriksaan', now())
+                    ->where('diagnosa', null)
+                    ->get();
+            }else{
+                $pemeriksaanHariIni=[];
+            }
                 return response()->json([
-                    'data'=>$request->all()
+                    'data'=>$pemeriksaanHariIni,
+                    "kiriman"=>$request->all()
                 ]);
 
         }catch(ValidationException $e){
