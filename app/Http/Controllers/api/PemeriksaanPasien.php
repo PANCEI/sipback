@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PemeriksaanPasien as PemeriksaanPasienModel;
 use Illuminate\Validation\ValidationException;
-
+use App\Models\CheckUpObat as CheckUpObatModel;
 class PemeriksaanPasien extends Controller
 {
     //
@@ -70,14 +70,16 @@ class PemeriksaanPasien extends Controller
     }
     public function pasien(Request $request){
         try{
-
+            $request->validate([
+                
+            ]);
+            return response()->json([
+                "data"=>$request->all()
+            ]);
         }catch(ValidationException $e){
             return response()->json([
                 'message'=>'gagal'
             ]);
         }
-        return response()->json([
-            "data"=>$request->all()
-        ]);
     }
 }
