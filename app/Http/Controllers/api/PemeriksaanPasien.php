@@ -69,6 +69,13 @@ class PemeriksaanPasien extends Controller
         }
     }
     public function pasien(Request $request){
+        try{
+
+        }catch(ValidationException $e){
+            return response()->json([
+                'message'=>'gagal'
+            ]);
+        }
         return response()->json([
             "data"=>$request->all()
         ]);
