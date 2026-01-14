@@ -69,6 +69,11 @@ class PemeriksaanPasien extends Controller
             ]);
         }
     }
+    /**`
+     * menyimpan data pemeriksaan pasien
+     * update table pemeriksaaan pasien dan menambahkan data obat yang di berikan
+     * jika gagal akan di rollback
+     */
     public function pasien(Request $request)
     {
         $request->validate([
@@ -111,6 +116,21 @@ class PemeriksaanPasien extends Controller
                 'message' => 'Gagal menyimpan data',
                 'error'   => $e->getMessage()
             ], 500);
+        }
+    }
+    public function history(Request $request)
+    {
+        try {
+            $request->validate([
+                'id_pasien' => 'required|integer'
+            ]);
+         return response()->json([
+            'data'=>$request->all()
+         ]);
+        } catch (ValidationException $e) {
+            return response()->json ([
+                'message' => 'pastikan datanya sesuai'
+            ], 422);
         }
     }
 }
