@@ -71,8 +71,16 @@ class PemeriksaanPasien extends Controller
     public function pasien(Request $request){
         try{
             $request->validate([
-                
+                'id_pemeriksaan'=>'required|integer',
+                'diagnosa'=>'required|string',
+                'dokter'=>'required'
             ]);
+            $pemeriksaan = PemeriksaanPasienModel::find($request->id_pemeriksaan);
+            if(!$pemeriksaan){
+            return response()->json([
+                'message'=>'data tidak ada'
+            ],422);
+            }
             return response()->json([
                 "data"=>$request->all()
             ]);
