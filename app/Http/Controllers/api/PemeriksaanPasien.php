@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\PemeriksaanPasien as PemeriksaanPasienModel;
 use Illuminate\Validation\ValidationException;
 use App\Models\CheckUpObat as CheckUpObatModel;
+use Illuminate\Support\Facades\DB;
 class PemeriksaanPasien extends Controller
 {
     //
@@ -69,12 +70,13 @@ class PemeriksaanPasien extends Controller
         }
     }
     public function pasien(Request $request){
+        $request->validate([
+            'id_pemeriksaan'=>'required|integer',
+            'diagnosa'=>'required|string',
+            'dokter'=>'required'
+        ]);
+        DB::beginTransaction();
         try{
-            $request->validate([
-                'id_pemeriksaan'=>'required|integer',
-                'diagnosa'=>'required|string',
-                'dokter'=>'required'
-            ]);
             $pemeriksaan = PemeriksaanPasienModel::find($request->id_pemeriksaan);
             if(!$pemeriksaan){
             return response()->json([
@@ -82,7 +84,8 @@ class PemeriksaanPasien extends Controller
             ],422);
             }
             return response()->json([
-                "data"=>$request->all()
+                "data"=>$request->all(),
+                "pemeriksaan"=>$pemeriksaan
             ]);
         }catch(ValidationException $e){
             return response()->json([
