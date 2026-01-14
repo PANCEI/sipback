@@ -8,6 +8,7 @@ use App\Models\PemeriksaanPasien as PemeriksaanPasienModel;
 use Illuminate\Validation\ValidationException;
 use App\Models\CheckUpObat as CheckUpObatModel;
 use Illuminate\Support\Facades\DB;
+
 class PemeriksaanPasien extends Controller
 {
     //
@@ -46,51 +47,70 @@ class PemeriksaanPasien extends Controller
     }
     public function today(Request $request)
     {
-        try{
+        try {
             $request->validate([
-                'akses'=>'required'
+                'akses' => 'required'
             ]);
-            if($request->akses ===1){
+            if ($request->akses === 1) {
                 $pemeriksaanHariIni = PemeriksaanPasienModel::with('pasien')
                     ->whereDate('tanggal_pemeriksaan', now())
                     ->where('diagnosa', null)
                     ->get();
-            }else{
-                $pemeriksaanHariIni=[];
+            } else {
+                $pemeriksaanHariIni = [];
             }
-                return response()->json([
-                    'data'=>$pemeriksaanHariIni,
-                    "kiriman"=>$request->all()
-                ]);
-
-        }catch(ValidationException $e){
             return response()->json([
-                'message'=>'pastikan dataya sesuai'
+                'data' => $pemeriksaanHariIni,
+                "kiriman" => $request->all()
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'pastikan dataya sesuai'
             ]);
         }
     }
-    public function pasien(Request $request){
+    public function pasien(Request $request)
+    {
         $request->validate([
-            'id_pemeriksaan'=>'required|integer',
-            'diagnosa'=>'required|string',
-            'dokter'=>'required'
+            'id_pemeriksaan' => 'required|integer',
+            'diagnosa' => 'required|string',
+            'dokter' => 'required'
         ]);
         DB::beginTransaction();
-        try{
+        try {
             $pemeriksaan = PemeriksaanPasienModel::find($request->id_pemeriksaan);
-            if(!$pemeriksaan){
-            return response()->json([
-                'message'=>'data tidak ada'
-            ],422);
+            if (!$pemeriksaan) {
+                return response()->json([
+                    'message' => 'data tidak ada'
+                ], 422);
             }
-            return response()->json([
-                "data"=>$request->all(),
-                "pemeriksaan"=>$pemeriksaan
+            $diagnosa = $request->diagnosa;
+            $pemeriksaan->update([
+                'diagnosa' => $diagnosa
             ]);
-        }catch(ValidationException $e){
+            // simpan data obat
+            $obatList = $request->rekam_medis['obat'];
+            foreach ($obatList as $obatItem) {
+                CheckUpObatModel::create([
+                    'id_obat' => $obatItem['kode_obat'],
+                    'dokter' => $request->dokter,
+                    'id_pemeriksaan' => $request->id_pemeriksaan,
+                    'dosis' => $obatItem['dosis'],
+                    'jumlah' => $obatItem['jumlah'],
+                    'tanggal_pemeriksaan_dokter' => now()
+                ]);
+            }
+            DB::commit();
             return response()->json([
-                'message'=>'gagal'
+                'message' => 'berhasil'
             ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => 'Gagal menyimpan data',
+                'error'   => $e->getMessage()
+            ], 500);
         }
     }
 }
